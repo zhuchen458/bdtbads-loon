@@ -1,0 +1,4 @@
+*.har
+*.har.*
+private/
+.DS_Store
