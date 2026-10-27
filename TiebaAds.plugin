@@ -1,0 +1,15 @@
+#!name = 百度贴吧去广告
+#!desc = 基于 iPhone HAR：清空开屏、信息流独立广告和竞价响应，关闭已识别开屏开关。帖子内嵌广告不保证清除；需开启 MitM、安装并信任证书。尚待真机验证。
+#!author = zhuchen458
+#!homepage = https://github.com/zhuchen458/bdtbads-loon
+#!date = 2026-10-27
+#!system = iOS,iPadOS
+#!loon_version = 3.5.1(983)
+#!tag = 去广告,贴吧
+
+[Script]
+response if ${url} ~= /^https:\/\/tiebac\.baidu\.com\/c\/(?:f\/ad\/getSplashAd|s\/sync)(?:[?#]|$)/ then script("https://raw.githubusercontent.com/zhuchen458/bdtbads-loon/main/scripts/tieba-json.js") with requires_body=true, timeout=10, tag="贴吧开屏与广告配置"
+response if ${url} ~= /^https:\/\/tiebac\.baidu\.com\/c\/(?:f\/ad\/getFeedAd|b\/ad\/adBid)(?:[?#]|$)/ then script("https://raw.githubusercontent.com/zhuchen458/bdtbads-loon/main/scripts/tieba-protobuf.js") with requires_body=true, binary_body_mode=true, timeout=10, tag="贴吧信息流与竞价广告"
+
+[Mitm]
+hostname = tiebac.baidu.com
